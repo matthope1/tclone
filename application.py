@@ -33,6 +33,24 @@ db = SQLAlchemy(app)
 def index():
     return render_template("index.html") 
 
+@app.route('/register', methods=["GET","POST"])
+def register():
+    
+    if request.method == "POST":
+        
+        username = request.form.get("username")
+        password = request.form.get("password")
+        confirmation = request.form.get("confirmation")
+
+        print(username)
+        print(password)
+        print(confirmation)
+
+        return render_template("login.html")
+
+    else:
+        return render_template("register.html")
+
 def errorhandler(e):
     """Handle error"""
     if not isinstance(e, HTTPException):
