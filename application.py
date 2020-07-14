@@ -47,7 +47,7 @@ with con:
 
     cur.execute("SELECT * FROM users WHERE username=?", t)
 
-    print(cur.fetchone())
+    # print(cur.fetchone())
     # for row in username_query:
         # print(row)
 
@@ -64,13 +64,57 @@ def index():
 
 @app.route('/login', methods=["GET", "POST"])
 def login():
-
+    
+    session.clear()
     #user reached login via post
     if request.method == "POST": 
-        print("login POST todo:")
+
+        username = request.form.get("username")
+        password = request.form.get("password")
+
+        if not username:
+            return apology("Must provide a username")
+
+        if not password:
+            return apology("Must provide a password")
+
+        # print("username: ", username)
+        # print("password: ", password)
+
+
+        id = None
+        #connect to database
+        con = lite.connect('tclone.db')
+
+        with con:
+            cur = con.cursor()
+
+            # db queries
+            username_touple = (username, )
+            username_hash_query = cur.execute("SELECT username, hash, id from users WHERE username=?", username_touple)
+
+            if cur.fetchone == None:
+                return apology("User does not exist")
+
+            #todo: 
+            # see if you can use cur.fetchone to do the same thing but safer
+            #this isnt safe because if the query somehow returns multiple rows then we will get some unexpected actions
+            for row in username_hash_query:
+                # print(row)
+                if not check_password_hash(row[1], password):
+                    return apology("invalid password")
+
+                id = row[2]
+
+        session["user_id"] = id
+    
+        return redirect("/")
+
     #user reached login via get  
     else:
-        print("login GET todo: ")
+        print("reached login via get")
+
+        return render_template("login.html")
 
 @app.route('/register', methods=["GET","POST"])
 def register():
@@ -83,7 +127,7 @@ def register():
         confirmation = request.form.get("confirmation")
         
         if not username:
-            return apology("Must enter a username")
+            return apology("Must provide a username")
 
         #connect to database
         con = lite.connect('tclone.db')
