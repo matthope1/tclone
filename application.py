@@ -78,8 +78,8 @@ def login():
         if not password:
             return apology("Must provide a password")
 
-        # print("username: ", username)
-        # print("password: ", password)
+        #print("username: ", username)
+        #print("password: ", password)
 
 
         id = None
@@ -89,25 +89,21 @@ def login():
         with con:
             cur = con.cursor()
 
-            # db queries
             username_touple = (username, )
-            username_hash_query = cur.execute("SELECT username, hash, id from users WHERE username=?", username_touple)
+            query = cur.execute("SELECT username, hash, id from users WHERE username=?", username_touple)
 
-            if cur.fetchone == None:
-                return apology("User does not exist")
+            queryData = cur.fetchone()
 
-            #todo: 
-            # see if you can use cur.fetchone to do the same thing but safer
-            #this isnt safe because if the query somehow returns multiple rows then we will get some unexpected actions
-            for row in username_hash_query:
-                # print(row)
-                if not check_password_hash(row[1], password):
-                    return apology("invalid password")
+            if not queryData:
+                return apology("invalid username/password")
 
-                id = row[2]
+            hash = queryData[1]
+            userId = queryData[2]
 
-        session["user_id"] = id
-    
+            if not check_password_hash(hash, password):
+                return apology("invalid password")
+
+        session["user_id"] = userId
         return redirect("/")
 
     #user reached login via get  

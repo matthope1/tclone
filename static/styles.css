@@ -11,3 +11,7 @@ html { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: 
 
 
 
+.login-container {
+    margin: 0 auto;
+    width: 40%;
+}
