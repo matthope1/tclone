@@ -7,19 +7,23 @@
 
 {% block main %}
 
-    <h1>todo: </h1>
+    <div class="form-container">
+        <h1>todo: </h1>
 
-    <form action="/register" method="post">
-        <h1>Register</h1>
-        <p>Create your Account</p>
+        <form action="/register" method="post">
+            <h1>Register</h1>
+            <p>Create your Account</p>
 
-        <div class="form-group">
-            <input autocomplete="off" autofocus class="form-control" name="username" placeholder="Username" type="text">
-            <input autocomplete="off" class="form-control" name="password" placeholder="Password" type="text">
-            <input autocomplete="off" class="form-control" name="confirmation" placeholder="Confirm Passowrd" type="text">
-        </div>
-        
-        <button class="btn btn-primary" type="submit" name="submit-button" id="submit-button">Register Now</button>
-    </form>
+            <div class="form-group">
+                <input autocomplete="off" autofocus class="form-control" name="username" placeholder="Username" type="text">
+                <input autocomplete="off" class="form-control" name="password" placeholder="Password" type="text">
+                <input autocomplete="off" class="form-control" name="confirmation" placeholder="Confirm Passowrd" type="text">
+            </div>
+            
+            <button class="btn btn-primary" type="submit" name="submit-button" id="submit-button">Register Now</button>
+        </form>
+
+
+    </div>
 
 {% endblock %}

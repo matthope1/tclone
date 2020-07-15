@@ -53,14 +53,22 @@ with con:
 
 
     con.commit()
-# con.close()
+con.close()
 
-print("insert complete")
+print("app starting...")
 
 @app.route('/')
 @login_required
 def index():
     return render_template("index.html") 
+
+@app.route('/logout')
+def logout():
+
+    session.clear()
+
+    flash("logout sucessful!")
+    return redirect("/")
 
 @app.route('/login', methods=["GET", "POST"])
 def login():
@@ -114,7 +122,7 @@ def login():
 
 @app.route('/register', methods=["GET","POST"])
 def register():
-
+    print("we got to register page")
     #user reached this route with the post method  
     if request.method == "POST":
         
@@ -145,7 +153,14 @@ def register():
             return apology("Passwords must match")
 
         hashed_pass = generate_password_hash(password)
+        
+        print("Username: ", username)
+        print("hashedPass: ", hashed_pass)
+
         cur.execute("INSERT INTO users (username, hash) values (?,?)", (username, hashed_pass))
+
+        con.commit()
+
 
         flash("Registration successful")      
         return render_template("login.html")
