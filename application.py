@@ -57,10 +57,32 @@ con.close()
 
 print("app starting...")
 
-@app.route('/')
+@app.route('/', methods=["GET","POST"])
 @login_required
 def index():
-    return render_template("index.html") 
+    if request.method == "POST":
+        tweet = request.form.get("tweet")
+
+        if not tweet:
+            return apology("Must provide text for tweet")
+
+        con = lite.connect('tclone.db')
+        #To do 
+        with con:
+            cur = con.cursor() 
+            tweet_touple = (tweet, )
+            query = cur.execute("INSERT INTO tweets" tweet)
+
+            queryData = cur.fetchone()
+
+
+
+        con.close()
+
+        flash("tweeted")
+        return render_template("index.html")
+    else:
+        return render_template("index.html") 
 
 @app.route('/logout')
 def logout():
@@ -110,6 +132,8 @@ def login():
 
             if not check_password_hash(hash, password):
                 return apology("invalid password")
+            
+        con.close()
 
         session["user_id"] = userId
         return redirect("/")
@@ -122,7 +146,6 @@ def login():
 
 @app.route('/register', methods=["GET","POST"])
 def register():
-    print("we got to register page")
     #user reached this route with the post method  
     if request.method == "POST":
         
@@ -160,7 +183,7 @@ def register():
         cur.execute("INSERT INTO users (username, hash) values (?,?)", (username, hashed_pass))
 
         con.commit()
-
+        con.close()
 
         flash("Registration successful")      
         return render_template("login.html")
