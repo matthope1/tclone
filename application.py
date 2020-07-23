@@ -79,10 +79,10 @@ def index():
 
             cur = con.cursor()
 
-            tweet_query = cur.execute("SELECT * FROM tweets")
+            tweet_query = cur.execute("SELECT username, post, like_count FROM users JOIN tweets")
 
             for row in tweet_query:
-                print(row)
+                # print(row)
                 tweet_list.append(row)
         
             con.commit()
