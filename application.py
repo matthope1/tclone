@@ -65,19 +65,9 @@ def index():
 
         if not tweet:
             return apology("Must provide text for tweet")
-
-        con = lite.connect('tclone.db')
-        #To do 
-        with con:
-            cur = con.cursor() 
-            tweet_touple = (tweet, )
-            query = cur.execute("INSERT INTO tweets" tweet)
-
-            queryData = cur.fetchone()
-
-
-
-        con.close()
+        
+        uid = session["user_id"] 
+        make_post(uid,tweet)
 
         flash("tweeted")
         return render_template("index.html")
@@ -203,6 +193,20 @@ for code in default_exceptions:
     app.errorhandler(code)(errorhandler)
 
 
+# helper functions for database interaction  
+def make_post(uid, tweet):
+    #To do
+    con = lite.connect('tclone.db')
+        #To do 
+    with con:
+        cur = con.cursor() 
+        data_touple = (uid, tweet) 
+        cur.execute("INSERT INTO tweets (uid, post, date) VALUES (?, ?, CURRENT_TIMESTAMP)", data_touple)
+
+        #queryData = cur.fetchone()
+        con.commit()
+
+    con.close()
 
 
 
