@@ -71,8 +71,24 @@ def index():
 
         flash("tweeted")
         return render_template("index.html")
+        
     else:
-        return render_template("index.html") 
+        tweet_list = []
+        con = lite.connect("tclone.db")        
+        with con:
+
+            cur = con.cursor()
+
+            tweet_query = cur.execute("SELECT * FROM tweets")
+
+            for row in tweet_query:
+                print(row)
+                tweet_list.append(row)
+        
+            con.commit()
+        con.close()
+
+        return render_template("index.html", tweets = tweet_list) 
 
 @app.route('/logout')
 def logout():
