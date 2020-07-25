@@ -8,11 +8,46 @@ html { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: 
 
 .sr-only { position: absolute; width: 1px; height: 1px; margin: -1px; border: 0; padding: 0; white-space: nowrap; clip-path: inset(100%); clip: rect(0 0 0 0); overflow: hidden;}
 
-
-
-.form-container {
-    margin: 0 auto;
-    width: 40%;
+body {
+    background-color: #15202B;
+    color: white;
 }
 
-    
+
+a {
+    color: #1DA1F2; 
+}
+
+li {
+    list-style: none;
+}
+
+.container {
+    margin: 0 auto;
+    width: 50%;
+    border: solid;
+    border-width: 1px;
+    padding: 3rem 0 3rem 0;
+}
+.inner-container {
+    margin: 0 auto;
+    width: 90%;
+    padding: 1rem 0 1rem 0;
+}
+.tweet-btn {
+    background-color: #15202B;
+    color: #1DA1F2;
+    border-color: #1DA1F2; 
+}
+
+
+.thin-border {
+    border-top: 1px solid white;
+    width: 100%;
+    border-bottom: 1px solid white;
+}
+
+#tweet-text-area {
+    background-color: #15202B;
+    color: white;
+}

@@ -7,7 +7,7 @@ index: explore
 
 {% block main %}
 
-   <div class="form-container">
+   <div class="inner-container">
         <form action="/" method="post">
             <p>What do you want to say?</p>
             <div class="form-group">
@@ -15,15 +15,18 @@ index: explore
                 <textarea maxlength="240" class="form-control" id="tweet-text-area" rows="3" name="tweet"></textarea>
             </div>
 
-            <button class="btn btn-primary" type="submit" name="submit-button" id="submit-button">Tweet</button>
+            <button class="btn btn-primary tweet-btn" type="submit" name="submit-button" id="submit-button">Tweet</button>
         </form>
     </div>
 
-    <div class="container">
-        <ul>
-            {% for tweet in tweets %}
-                <li>{{tweet}}</li>
-            {% endfor %}
-        </ul>
+    <div class="thin-border inner-container">
+        <!-- <div class="inner-container"> -->
+            <ul>
+                {% for tweet in tweets %}
+                    <li>{{tweet}}</li>
+                {% endfor %}
+            </ul>
+        <!-- </div> -->
+
     </div>
 {% endblock %}

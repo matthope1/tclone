@@ -183,8 +183,8 @@ def register():
 
         hashed_pass = generate_password_hash(password)
         
-        print("Username: ", username)
-        print("hashedPass: ", hashed_pass)
+        # print("Username: ", username)
+        # print("hashedPass: ", hashed_pass)
 
         cur.execute("INSERT INTO users (username, hash) values (?,?)", (username, hashed_pass))
 
