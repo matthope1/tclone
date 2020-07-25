@@ -55,7 +55,7 @@ with con:
     con.commit()
 con.close()
 
-print("app starting...")
+# print("app starting...")
 
 @app.route('/', methods=["GET","POST"])
 @login_required
@@ -70,7 +70,7 @@ def index():
         make_post(uid,tweet)
 
         flash("tweeted")
-        return render_template("index.html")
+        return redirect("/")
         
     else:
         tweet_list = []
@@ -82,9 +82,18 @@ def index():
             tweet_query = cur.execute("SELECT username, post, like_count FROM users JOIN tweets")
 
             for row in tweet_query:
+                list = []
+                list.append(row[0])
+                list.append(" ".join(row[1].split("\r\n")))
+
+                list.append(row[2])
+
                 # print(row)
-                tweet_list.append(row)
-        
+                # print(row[0])
+                # print(row[1])
+                # print(row[2])
+                print(list)
+                tweet_list.append(list)
             con.commit()
         con.close()
 

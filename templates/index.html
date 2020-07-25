@@ -19,14 +19,13 @@ index: explore
         </form>
     </div>
 
-    <div class="thin-border inner-container">
-        <!-- <div class="inner-container"> -->
-            <ul>
-                {% for tweet in tweets %}
-                    <li>{{tweet}}</li>
-                {% endfor %}
-            </ul>
-        <!-- </div> -->
-
-    </div>
+    {% for tweet in tweets %}
+        <div class="thin-border">
+            <div class="inner-container">
+                <h3>{{tweet[0]}}</h3>
+                        <!-- <li>{{tweet[1]}}</li> -->
+                <p>{{tweet[1]}}</p>
+            </div>
+        </div>
+    {% endfor %}
 {% endblock %}
