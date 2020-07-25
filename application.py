@@ -29,33 +29,7 @@ app.config["SESSION_TYPE"] = "filesystem"
 #app.config["SQLALCHEMY_DATABASE_URI"] = 'sqlite:///tclone.db'
 Session(app)
 
-# db = SQLAlchemy(app)
 
-con = lite.connect('tclone.db')
-
-with con:
-
-    cur = con.cursor()
-
-    username = "testUser"
-    password = generate_password_hash("testPass")
-
-    # cur.execute("INSERT INTO users (username, hash) values (?,?)", (username, password))
-    # cur.execute("INSERT INTO users VALUES (?, ?)", username, password)
-
-    t = (username, ) #needs to provide a touple of values for the query
-
-    cur.execute("SELECT * FROM users WHERE username=?", t)
-
-    # print(cur.fetchone())
-    # for row in username_query:
-        # print(row)
-
-
-    con.commit()
-con.close()
-
-# print("app starting...")
 
 @app.route('/', methods=["GET","POST"])
 @login_required
@@ -85,15 +59,9 @@ def index():
                 list = []
                 list.append(row[0])
                 list.append(" ".join(row[1].split("\r\n")))
-
                 list.append(row[2])
-
-                # print(row)
-                # print(row[0])
-                # print(row[1])
-                # print(row[2])
-                print(list)
                 tweet_list.append(list)
+
             con.commit()
         con.close()
 
@@ -122,10 +90,6 @@ def login():
 
         if not password:
             return apology("Must provide a password")
-
-        #print("username: ", username)
-        #print("password: ", password)
-
 
         id = None
         #connect to database
@@ -178,7 +142,6 @@ def register():
             cur = con.cursor()
             q = (username, )
             username_query = cur.execute("SELECT * from users WHERE username=?", q)
-            #print(cur.fetchone())
 
             #if the query doesn't return 0 rows then the username is not available 
             if cur.fetchone() != None:
@@ -192,9 +155,6 @@ def register():
 
         hashed_pass = generate_password_hash(password)
         
-        # print("Username: ", username)
-        # print("hashedPass: ", hashed_pass)
-
         cur.execute("INSERT INTO users (username, hash) values (?,?)", (username, hashed_pass))
 
         con.commit()
@@ -220,17 +180,13 @@ for code in default_exceptions:
 
 # helper functions for database interaction  
 def make_post(uid, tweet):
-    #To do
     con = lite.connect('tclone.db')
-        #To do 
+
     with con:
         cur = con.cursor() 
         data_touple = (uid, tweet) 
         cur.execute("INSERT INTO tweets (uid, post, date) VALUES (?, ?, CURRENT_TIMESTAMP)", data_touple)
-
-        #queryData = cur.fetchone()
         con.commit()
-
     con.close()
 
 

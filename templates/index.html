@@ -6,26 +6,26 @@ index: explore
 
 
 {% block main %}
-
-   <div class="inner-container">
-        <form action="/" method="post">
-            <p>What do you want to say?</p>
-            <div class="form-group">
-                <label for="tweet-text-area"></label>
-                <textarea maxlength="240" class="form-control" id="tweet-text-area" rows="3" name="tweet"></textarea>
-            </div>
-
-            <button class="btn btn-primary tweet-btn" type="submit" name="submit-button" id="submit-button">Tweet</button>
-        </form>
-    </div>
-
-    {% for tweet in tweets %}
-        <div class="thin-border">
-            <div class="inner-container">
-                <h3>{{tweet[0]}}</h3>
-                        <!-- <li>{{tweet[1]}}</li> -->
-                <p>{{tweet[1]}}</p>
-            </div>
-        </div>
-    {% endfor %}
+    <div class="container">
+        <div class="inner-container">
+             <form action="/" method="post">
+                 <p>What do you want to say?</p>
+                 <div class="form-group">
+                     <label for="tweet-text-area"></label>
+                     <textarea maxlength="240" class="form-control" id="tweet-text-area" rows="3" name="tweet"></textarea>
+                 </div>
+     
+                 <button class="btn btn-primary tweet-btn" type="submit" name="submit-button" id="submit-button">Tweet</button>
+             </form>
+         </div>
+     
+         {% for tweet in tweets %}
+             <div class="thin-border">
+                 <div class="inner-container">
+                     <h3>{{tweet[0]}}</h3>
+                     <p>{{tweet[1]}}</p>
+                 </div>
+             </div>
+         {% endfor %}
+    </div>     
 {% endblock %}
