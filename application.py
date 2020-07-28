@@ -53,9 +53,10 @@ def index():
 
             cur = con.cursor()
 
-            tweet_query = cur.execute("SELECT username, post, like_count FROM users JOIN tweets")
+            tweet_query = cur.execute("SELECT DISTINCT username, post, like_count FROM users JOIN tweets ON(uid = id)")
 
             for row in tweet_query:
+                print(row)
                 list = []
                 list.append(row[0])
                 list.append(" ".join(row[1].split("\r\n")))
