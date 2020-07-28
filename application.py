@@ -167,6 +167,21 @@ def register():
     else:
         return render_template("register.html")
 
+@app.route('/manage-profile', methods=["GET","POST"])
+@login_required
+def manage_profile():
+
+    # user reached route via post method
+    if request.method == "POST":
+        print("todo") 
+
+    #user reached route via get method
+    else:
+        return render_template("manage-profile.html")
+
+
+
+
 def errorhandler(e):
     """Handle error"""
     if not isinstance(e, HTTPException):
