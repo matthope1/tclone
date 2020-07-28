@@ -56,7 +56,6 @@ def index():
             tweet_query = cur.execute("SELECT DISTINCT username, post, like_count FROM users JOIN tweets ON(uid = id)")
 
             for row in tweet_query:
-                print(row)
                 list = []
                 list.append(row[0])
                 list.append(" ".join(row[1].split("\r\n")))
@@ -120,8 +119,6 @@ def login():
 
     #user reached login via get  
     else:
-        print("reached login via get")
-
         return render_template("login.html")
 
 @app.route('/register', methods=["GET","POST"])
@@ -168,18 +165,31 @@ def register():
     else:
         return render_template("register.html")
 
-@app.route('/manage-profile', methods=["GET","POST"])
+@app.route('/manage-profile') 
 @login_required
 def manage_profile():
 
-    # user reached route via post method
-    if request.method == "POST":
-        print("todo") 
-
     #user reached route via get method
-    else:
-        return render_template("manage-profile.html")
+    return render_template("manage-profile.html")
 
+@app.route('/change-pass', methods=["GET", "POST"])
+@login_required
+def change_pass():
+    
+    #user reached change pass with post method
+    if request.method == "POST":
+        old_pass = request.form.get("old-password")
+        new_pass = request.form.get("new-password")
+        confirm_pass = request.form.get("confirm-new")
+
+        print(old_pass)
+        print(new_pass)
+        print(confirm_pass)
+        flash("password changed!")
+        return render_template("index.html")
+    #user reached change pass with get method 
+    else:
+        return render_template("change-pass.html")
 
 
 

@@ -5,7 +5,22 @@
 {% endblock %}
 
 {% block main %}
-    <h1>Change your password</h1>
+
+    <div class="form-container">
+        <form action="/change-pass" method="post">
+        
+            <h1>Change your password</h1>
+            <div class="form-group">
+                <input autocomplete="off" autofocus class="form-control" name="old-password" placeholder="Old Password" type="password">
+                <input autocomplete="off" autofocus class="form-control" name="new-password" placeholder="New Password" type="password">
+                <input autocomplete="off" autofocus class="form-control" name="confirm-new" placeholder="Confirm new passoword" type="password">
+    
+            </div>
+
+            <button class="btn btn-primary tweet-btn" type="submit" name="change-pass" id="submit-button">Change Password</button>
+        </form>    
+
+    </div>
     
     
 {% endblock %}
