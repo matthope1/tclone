@@ -91,7 +91,9 @@ def login():
         if not password:
             return apology("Must provide a password")
 
-        id = None
+
+        # TO DO 
+        # user the get user data function instead 
         #connect to database
         con = lite.connect('tclone.db')
 
@@ -181,12 +183,30 @@ def change_pass():
         old_pass = request.form.get("old-password")
         new_pass = request.form.get("new-password")
         confirm_pass = request.form.get("confirm-new")
+        
+        if not old_pass:
+            return apology("missing password")
+        
+        if not new_pass:
+            return apology("missing new pass")
+        
+        if not confirm_pass:
+            return apology("missing password confirmation")
 
-        print(old_pass)
-        print(new_pass)
-        print(confirm_pass)
+        # query db for current password & check if it matches new password
+        user_data = get_user_data(session["user_id"])
+
+        hash = user_data["hash"]
+        if not check_password_hash(hash, password):
+            return apology("Invalid password")
+
+        #TO DO
+        # update the database to change current password to the new password
+
+
         flash("password changed!")
-        return render_template("index.html")
+        return redirect("/")
+
     #user reached change pass with get method 
     else:
         return render_template("change-pass.html")
@@ -215,7 +235,71 @@ def make_post(uid, tweet):
         con.commit()
     con.close()
 
+def get_username():
 
+    """
+    returns the current users username
+    """
+
+    user_id = session["user_id"]
+
+    con = lite.connect('tclone.db')
+
+    username = None
+
+    with con:
+        cur = con.cursor()
+        data_touple = (user_id, )
+        cur.execute("SELECT USERNAME FROM USERS WHERE id = ? ", data_touple)
+
+        query_data = cur.fetchone()
+
+        for row in query_data:
+            username = row
+
+    con.close()
+
+    return username
+
+def get_user_data(user_id):
+    """
+    param: current user's userid 
+    return: a dictionary containing username hash and id from db query
+    username
+    hash
+    userid
+    """
+
+    user_data_dict = {}
+
+    username = get_username()
+
+    con = lite.connect('tclone.db')
+
+    with con:
+        cur = con.cursor()
+
+        username_touple = (username, )
+        query = cur.execute("SELECT username, hash, id from users WHERE username=?", username_touple)
+
+        queryData = cur.fetchone()
+
+        if not queryData:
+            return apology("invalid username/could not find user")
+
+        
+        username = queryData[0]
+        hash = queryData[1]
+        userId = queryData[2]
+
+
+        user_data_dict["username"] = username
+        user_data_dict["hash"] = hash
+        user_data_dict["userId"] = userId
+        
+    con.close()
+
+    return user_data_dict
 
 
 
