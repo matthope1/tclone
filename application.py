@@ -193,16 +193,39 @@ def change_pass():
         if not confirm_pass:
             return apology("missing password confirmation")
 
+        if old_pass == new_pass:
+            return apology("new password must be different from current password")
+
+        if new_pass != confirm_pass:
+            return apology("passwords must match")
+
         # query db for current password & check if it matches new password
         user_data = get_user_data(session["user_id"])
 
         hash = user_data["hash"]
-        if not check_password_hash(hash, password):
+        if not check_password_hash(hash, old_pass):
             return apology("Invalid password")
 
         #TO DO
         # update the database to change current password to the new password
 
+        print("old pass:", old_pass)
+        print("new pass:", new_pass)
+        print("confirm pass:", confirm_pass)
+
+
+        new_hash = generate_password_hash(new_pass)
+
+        con = lite.connect('tclone.db')
+
+        with con:
+            cur = con.cursor()
+
+            cur.execute("UPDATE USERS SET hash = ? WHERE id = ?", (new_hash, session["user_id"]))
+
+            con.commit()
+
+        con.close()
 
         flash("password changed!")
         return redirect("/")
