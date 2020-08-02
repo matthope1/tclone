@@ -13,19 +13,12 @@
 
 <body>
     <nav class="navbar navbar-expand-md">
-        <!--<span class="red">$</span><span class="yellow">5</span> <span class="green">0</span>-->
         <a class="navbar-brand" href="/"><span>TCLONE</span></a>
         <button aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-target="#navbar" data-toggle="collapse" type="button">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbar">
+        <div class="navbar-collapse" id="navbar">
             {% if session.user_id %}
-                <ul class="navbar-nav mr-auto mt-2">
-                    <!-- <li class="nav-item"><a class="nav-link" href="/">link1</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/">link2</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/">link3</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/">link4</a></li> -->
-                </ul>
                 <ul class="navbar-nav ml-auto mt-2">
                     <li class="nav-item"><a class="nav-link" href="/manage-profile">Manage Profile</a></li>
                     <li class="nav-item"><a class="nav-link" href="/logout">Log Out</a></li>
@@ -48,7 +41,7 @@
     {% endif %}
 
     <main>
-        <div>
+        <div class="main-block">
             {% block main %}{% endblock %}
         </div>
     </main>

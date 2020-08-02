@@ -78,5 +78,12 @@ main {
 }
 
 
+/* media queries */
 
 
+@media (max-width: 768px) {
+    nav.navbar.navbar-expand-md {
+        text-align: center;
+    }
+    
+}
