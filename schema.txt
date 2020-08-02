@@ -1,17 +1,15 @@
-schema
+CREATE TABLE sqlite_sequence(name,seq);
+CREATE TABLE IF NOT EXISTS 'tweets'
+('tid' INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+'uid' INTEGER NOT NULL, 'post' VARCHAR (240), 'date' DATETIME, like_count INTEGER 
+DEFAULT 0,
+FOREIGN KEY (uid)
+REFERENCES users (id)
+);
 CREATE TABLE IF NOT EXISTS 'users'
 ('id' INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
 'username' TEXT NOT NULL,
 'hash' TEXT NOT NULL);
-CREATE TABLE sqlite_sequence(name,seq);
-CREATE TABLE IF NOT EXISTS 'tweets'
-('tid' INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
-'uid' INTEGER NOT NULL,
-FOREIGN KEY (uid)
-REFERENCES users (id)
-);
-CREATE UNIQUE INDEX tid
-ON tweets (tid);
 CREATE TABLE IF NOT EXISTS 'follows'
 ('uid' INTEGER NOT NULL,
 'follower' INTEGER NOT NULL,
@@ -19,5 +17,3 @@ FOREIGN KEY (uid)
 REFERENCES users (id)
 FOREIGN KEY (follower)
 REFERENCES users (id) );
-sqlite> select * from follows
-   ...> ;
