@@ -13,13 +13,27 @@ body {
     color: white;
 }
 
-
 a {
     color: #1DA1F2; 
 }
 
 li {
     list-style: none;
+}
+
+main {
+    margin-top: 60px;
+}
+
+.submit-button-container {
+    position: relative;
+    margin-bottom: 50px;
+}
+
+#submit-button {
+    background-color: #15202B;
+    color: #1DA1F2;
+    border-color: #1DA1F2; 
 }
 
 .form-container {
@@ -32,7 +46,7 @@ li {
     width: 50%;
     border: solid;
     border-width: 1px;
-    padding: 3rem 0 3rem 0;
+    padding: 0 0 3rem 0;
 }
 
 .inner-container {
@@ -43,11 +57,10 @@ li {
 }
 
 .tweet-btn {
-    background-color: #15202B;
-    color: #1DA1F2;
-    border-color: #1DA1F2; 
-}
+    position: absolute;
+    right: 0;
 
+}
 
 .thin-border {
     border-top: 1px solid white;
@@ -59,3 +72,11 @@ li {
     background-color: #15202B;
     color: white;
 }
+
+.tweet-date {
+    font-size: 16px;
+}
+
+
+
+

@@ -8,8 +8,6 @@ from werkzeug.security import check_password_hash, generate_password_hash
 from helpers import apology, login_required
 from flask import Flask
 
-#from flask_sqlalchemy import SQLAlchemy
-
 app = Flask(__name__)
 # Ensure templates are auto-reloaded
 app.config["TEMPLATES_AUTO_RELOAD"] = True
@@ -26,9 +24,7 @@ def after_request(response):
 app.config["SESSION_FILE_DIR"] = mkdtemp()
 app.config["SESSION_PERMANENT"] = False
 app.config["SESSION_TYPE"] = "filesystem"
-#app.config["SQLALCHEMY_DATABASE_URI"] = 'sqlite:///tclone.db'
 Session(app)
-
 
 
 @app.route('/', methods=["GET","POST"])
@@ -53,13 +49,14 @@ def index():
 
             cur = con.cursor()
 
-            tweet_query = cur.execute("SELECT DISTINCT username, post, like_count FROM users JOIN tweets ON(uid = id)")
+            tweet_query = cur.execute("SELECT DISTINCT username, post, date, like_count FROM users JOIN tweets ON(uid = id)")
 
             for row in tweet_query:
                 list = []
                 list.append(row[0])
                 list.append(" ".join(row[1].split("\r\n")))
                 list.append(row[2])
+                list.append(row[3])
                 tweet_list.append(list)
 
             con.commit()
@@ -91,9 +88,6 @@ def login():
         if not password:
             return apology("Must provide a password")
 
-
-        # TO DO 
-        # user the get user data function instead 
         #connect to database
         con = lite.connect('tclone.db')
 
@@ -205,13 +199,6 @@ def change_pass():
         hash = user_data["hash"]
         if not check_password_hash(hash, old_pass):
             return apology("Invalid password")
-
-        #TO DO
-        # update the database to change current password to the new password
-
-        print("old pass:", old_pass)
-        print("new pass:", new_pass)
-        print("confirm pass:", confirm_pass)
 
 
         new_hash = generate_password_hash(new_pass)
