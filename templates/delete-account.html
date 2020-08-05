@@ -1,0 +1,47 @@
+{% extends "layout.html" %}
+
+
+{% block title %}
+    delete account 
+
+{% endblock %}
+
+
+{% block main %}
+
+    <div class="form-container">
+        <form action="/delete-account" method="post">
+        
+            <h1>Delete Your Account</h1>
+
+            <p>Hi <strong>{{username}},</strong><p>
+            <p>We're sorry to hear you'd like to delete your account.</p>
+            <br>
+            
+
+            <label for="user-reasons">Why are you deleting your account?</label>
+            <select name="user-reasons" id="user-reasons">
+                <option value="busy">Too busy/too distracting</option>
+                <option value="privacy">Privacy concerns</option>
+                <option value="trouble">Trouble getting started</option>
+                <option value="second">Created second account</option>
+                <option value="other">Other reasons</option>
+            </select>
+
+            <p>Enter your password to delete your account</p>
+            <hr>
+            <div class="form-group">
+                <input autocomplete="off" autofocus class="form-control" name="old-password" placeholder="Old Password" type="password">
+                <hr>
+                <input autocomplete="off" autofocus class="form-control" name="new-password" placeholder="New Password" type="password">
+                <hr>
+                <input autocomplete="off" autofocus class="form-control" name="confirm-new" placeholder="Confirm new passoword" type="password">
+
+            </div>
+
+            <button class="btn btn-primary" type="submit" name="change-pass" id="submit-button">Delete account</button>
+        </form>    
+
+    </div>
+    
+{% endblock %}

@@ -168,6 +168,28 @@ def manage_profile():
     #user reached route via get method
     return render_template("manage-profile.html")
 
+@app.route('/delete-account')
+@login_required
+def delete_acc():
+
+    #user reached route via post method
+    if request.method == "POST":
+        print("todo: delete account post method")
+        flash("left delete account via post")
+
+        return redirect("/")
+
+    #user reached route via get method
+    else:
+        print("todo: delete account get method")
+        flash("left delete account via get")
+        username = get_username()
+        print(username)
+
+        return render_template("delete-account.html", username=username)
+
+
+
 @app.route('/change-pass', methods=["GET", "POST"])
 @login_required
 def change_pass():
