@@ -168,21 +168,43 @@ def manage_profile():
     #user reached route via get method
     return render_template("manage-profile.html")
 
-@app.route('/delete-account')
+@app.route('/delete-account', methods=["GET","POST"])
 @login_required
 def delete_acc():
 
     #user reached route via post method
     if request.method == "POST":
-        print("todo: delete account post method")
-        flash("left delete account via post")
+        given_password = request.form.get("password")
+        user_id = str(session["user_id"])
+        user_data = get_user_data(user_id)
+        hash = user_data["hash"]
 
+        if not check_password_hash(hash,given_password):
+            return apology("Invalid password given")
+
+        #query users table  and delete current user from db
+        # as well as deleting all their tweets from the tweets table
+        con = lite.connect('tclone.db')
+
+        with con:
+            cur = con.cursor()
+
+            cur.execute("DELETE FROM users where id = ?", (user_id))
+            cur.execute("DELETE FROM tweets where uid = ?", (user_id))
+
+            con.commit()
+        
+        con.close()
+
+        #log user out
+        session.clear()
+
+        flash("account deleted!")
         return redirect("/")
 
     #user reached route via get method
     else:
         print("todo: delete account get method")
-        flash("left delete account via get")
         username = get_username()
         print(username)
 
