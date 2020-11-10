@@ -39,6 +39,8 @@ main {
 .form-container {
     margin: 0 auto;
     width: 50%;
+    border: solid;
+    border-color: pink;
 }
 
 .container {
@@ -53,13 +55,15 @@ main {
     margin: 0 auto;
     width: 90%;
     padding: 1rem 0 1rem 0;
-    border-bottom-color: pink;
 }
 
 .tweet-btn {
     position: absolute;
     right: 0;
+}
 
+.tweets {
+    margin-top: 100px;
 }
 
 .thin-border {
@@ -77,10 +81,7 @@ main {
     font-size: 16px;
 }
 
-
 /* media queries */
-
-
 @media (max-width: 768px) {
     nav.navbar.navbar-expand-md {
         text-align: center;

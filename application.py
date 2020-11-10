@@ -341,11 +341,9 @@ def get_user_data(user_id):
         if not queryData:
             return apology("invalid username/could not find user")
 
-        
         username = queryData[0]
         hash = queryData[1]
         userId = queryData[2]
-
 
         user_data_dict["username"] = username
         user_data_dict["hash"] = hash

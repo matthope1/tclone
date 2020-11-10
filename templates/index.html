@@ -1,15 +1,14 @@
 {% extends "layout.html" %}
 
 {% block title %}
-index: explore
+    index: explore
 {% endblock %}
-
 
 {% block main %}
     <div class="container">
         <div class="inner-container">
              <form action="/" method="post">
-                <p>What do you want to say?</p>
+                <p>What do you want to tell the world?</p>
                 <div class="form-group">
                     <label for="tweet-text-area"></label>
                     <textarea maxlength="240" class="form-control" id="tweet-text-area" rows="3" name="tweet"></textarea>
@@ -20,6 +19,7 @@ index: explore
              </form>
          </div>
      
+        <div class="tweets">
          {% for tweet in tweets %}
              <div class="thin-border">
                  <div class="inner-container">
@@ -29,5 +29,6 @@ index: explore
                  </div>
              </div>
          {% endfor %}
+        </div>
     </div>     
 {% endblock %}
