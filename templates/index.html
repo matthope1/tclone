@@ -5,30 +5,39 @@
 {% endblock %}
 
 {% block main %}
-    <div class="container">
-        <div class="inner-container">
-             <form action="/" method="post">
-                <p>What do you want to tell the world?</p>
-                <div class="form-group">
-                    <label for="tweet-text-area"></label>
-                    <textarea maxlength="240" class="form-control" id="tweet-text-area" rows="3" name="tweet"></textarea>
-                </div>
-                <div class="submit-button-container">
-                    <button class="btn btn-primary tweet-btn" type="submit" name="submit-button" id="submit-button">Tweet</button>
-                </div>
-             </form>
-         </div>
-     
-        <div class="tweets">
-         {% for tweet in tweets %}
-             <div class="thin-border">
-                 <div class="inner-container">
-                    <h3>@{{tweet[0]}}</h3>
-                    <p>{{tweet[1]}}</p>
-                    <p class="tweet-date">{{tweet[2]}}</p>
-                 </div>
-             </div>
-         {% endfor %}
+    <div class="flex-parent">
+        <div class="sidebar">
+            <nav>
+                <h1>icon</h1>
+                <h2>icon</h2>
+            </nav>
         </div>
-    </div>     
+        <div class="index container">
+            <div class="inner-container">
+                <form action="/" method="post">
+                    <p>What do you want to tell the world?</p>
+                    <div class="form-group">
+                        <label for="tweet-text-area"></label>
+                        <textarea maxlength="240" class="form-control" id="tweet-text-area" rows="3" name="tweet"></textarea>
+                    </div>
+                    <div class="submit-button-container">
+                        <button class="btn btn-primary tweet-btn" type="submit" name="submit-button" id="submit-button">Tweet</button>
+                    </div>
+                </form>
+            </div>
+        
+            <div class="tweets">
+            {% for tweet in tweets %}
+                <div class="thin-border">
+                    <div class="inner-container">
+                        <h3>@{{tweet[0]}}</h3>
+                        <p>{{tweet[1]}}</p>
+                        <p class="tweet-date">{{tweet[2]}}</p>
+                    </div>
+                </div>
+            {% endfor %}
+            </div>
+        </div>
+    </div>
+         
 {% endblock %}
