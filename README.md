@@ -18,7 +18,7 @@ Second install from requirements.txt using pip
 `pip install -r requirements.txt`
 
 
-## Useage
+## Usage
 
 Create a flask app env variable
 
